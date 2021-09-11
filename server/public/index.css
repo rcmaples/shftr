@@ -1,0 +1,586 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f0ec;
+  font-family: 'neue_montreallight';
+  font-size: 1.6rem;
+}
+
+p {
+  font-weight: bold;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+main {
+  height: 92vh;
+  padding: 6px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5rem;
+}
+
+.default-color {
+  background-color: #6ba4e6;
+}
+
+.ok-color {
+  background-color: #6be68c;
+}
+
+.warning-color {
+  background-color: #e5dd6c;
+}
+
+.error-color {
+  background-color: #e66b6b;
+}
+
+.form-icon {
+  width: 50px;
+  height: 50px;
+  padding: 2px;
+  border-radius: 4px 0px 0px 4px;
+  vertical-align: middle;
+  border: 1px solid black;
+  border-right: 0px;
+  margin-top: -0.25rem;
+}
+
+:focus {
+  outline: 2px dashed #e66b6b;
+}
+
+form {
+  padding-top: 1.6rem;
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'collegiateregular';
+  src: url('../fonts/collegiate-webfont.woff2') format('woff2'), url('../fonts/collegiate-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'neue_montrealbold_italic';
+  src: url('./fonts/neuemontreal-bolditalic-webfont.woff2') format('woff2'),
+    url('./fonts/neuemontreal-bolditalic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'neue_montreallight_italic';
+  src: url('../fonts/neuemontreal-lightitalic-webfont.woff2') format('woff2'),
+    url('./fonts/neuemontreal-lightitalic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'neue_montrealbold';
+  src: url('./fonts/neuemontreal-bold-webfont.woff2') format('woff2'),
+    url('./fonts/neuemontreal-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'neue_montreallight';
+  src: url('./fonts/neuemontreal-light-webfont.woff2') format('woff2'),
+    url('./fonts/neuemontreal-light-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+header {
+  box-sizing: border-box;
+  height: 62px;
+  width: 100%;
+  background-color: #333333;
+  display: flex;
+  color: #f0f0f0;
+  justify-content: space-between;
+  padding: 0 60px;
+  align-items: center;
+  position: fixed;
+  top: 0;
+}
+
+nav {
+  font-family: 'neue_montrealbold';
+}
+
+.loader-st0 {
+  fill: #fff;
+}
+
+.loader-st1,
+.loader-st2,
+.loader-st3 {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+}
+
+.loader-st2,
+.loader-st3 {
+  fill: none;
+}
+
+.loader-st3 {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.satellite {
+  -webkit-animation: rotate 18s infinite linear;
+  animation: rotate 18s infinite linear;
+}
+
+.shaker {
+  width: 60px;
+  height: 60px;
+}
+
+.signal {
+  -webkit-animation: signal 0.75s infinite alternate ease-in-out;
+  animation: signal 0.75s infinite alternate ease-in-out;
+}
+
+.signal:nth-child(5) {
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
+}
+
+.signal:nth-child(4) {
+  -webkit-animation-delay: 0.75s;
+  animation-delay: 0.75s;
+}
+
+.signal:nth-child(3) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+@-webkit-keyframes signal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes signal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: translate(1px, 1px);
+    transform: translate(1px, 1px);
+  }
+  10% {
+    -webkit-transform: translate(-1px, -2px);
+    transform: translate(-1px, -2px);
+  }
+  20% {
+    -webkit-transform: translate(-3px, 0px);
+    transform: translate(-3px, 0px);
+  }
+  30% {
+    -webkit-transform: translate(3px, 2px);
+    transform: translate(3px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(1px, -1px);
+    transform: translate(1px, -1px);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 2px);
+    transform: translate(-1px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-3px, 1px);
+    transform: translate(-3px, 1px);
+  }
+  70% {
+    -webkit-transform: translate(3px, 1px);
+    transform: translate(3px, 1px);
+  }
+  80% {
+    -webkit-transform: translate(-1px, -1px);
+    transform: translate(-1px, -1px);
+  }
+  90% {
+    -webkit-transform: translate(1px, 2px);
+    transform: translate(1px, 2px);
+  }
+  100% {
+    -webkit-transform: translate(1px, -2px);
+    transform: translate(1px, -2px);
+  }
+}
+
+@keyframes shake {
+  0% {
+    -webkit-transform: translate(1px, 1px);
+    transform: translate(1px, 1px);
+  }
+  10% {
+    -webkit-transform: translate(-1px, -2px);
+    transform: translate(-1px, -2px);
+  }
+  20% {
+    -webkit-transform: translate(-3px, 0px);
+    transform: translate(-3px, 0px);
+  }
+  30% {
+    -webkit-transform: translate(3px, 2px);
+    transform: translate(3px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(1px, -1px);
+    transform: translate(1px, -1px);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 2px);
+    transform: translate(-1px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-3px, 1px);
+    transform: translate(-3px, 1px);
+  }
+  70% {
+    -webkit-transform: translate(3px, 1px);
+    transform: translate(3px, 1px);
+  }
+  80% {
+    -webkit-transform: translate(-1px, -1px);
+    transform: translate(-1px, -1px);
+  }
+  90% {
+    -webkit-transform: translate(1px, 2px);
+    transform: translate(1px, 2px);
+  }
+  100% {
+    -webkit-transform: translate(1px, -2px);
+    transform: translate(1px, -2px);
+  }
+}
+
+.cls-1,
+.cls-2 {
+  fill: #f0f0f0;
+}
+
+.cls-2 {
+  font-size: 126.6px;
+  font-family: 'collegiateregular';
+  letter-spacing: -0.03em;
+}
+
+.logo-img {
+  box-sizing: border-box;
+  height: 60px;
+  padding: 5px;
+}
+
+.feedComponent {
+  display: inline-block;
+  width: 345px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.feedComponent--following {
+  flex: 0 0 20vw;
+  margin-bottom: -2rem;
+}
+
+.feedComponent--popular {
+  width: 100%;
+  height: 50%;
+  margin-bottom: -2rem;
+}
+
+.feedComponent--repos {
+  width: 100%;
+  height: 50%;
+}
+
+.feedComponent--starred {
+  width: 100%;
+  height: 50%;
+  margin-bottom: -2rem;
+}
+
+.feedComponent--watching {
+  width: 100%;
+  height: 50%;
+}
+
+.feedComponentContainer {
+  display: flex;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedComponentTitle {
+  font-family: 'neue_montrealbold';
+  align-self: center;
+}
+
+.feedComponentHeader {
+  display: flex;
+  align-content: center;
+  height: 30px;
+}
+
+.feedComponentHeader > img {
+  padding: 0.2rem;
+  width: 25px;
+  margin-right: 0.2rem;
+}
+
+.dashboard-center {
+  flex: 0 0 60vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-right {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 20vw;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+  width: 82.887%;
+  height: 50px;
+  padding: 4px 6px;
+  border: 1px solid black;
+  border-left: 0px;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: medium;
+}
+
+form {
+  width: 320px;
+}
+
+label {
+  margin-top: 20px;
+}
+
+fieldset {
+  border: none;
+}
+
+.landingPageContainer {
+  display: flex;
+  background-color: white;
+  height: 80vh;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+.landingPage {
+  width: 80%;
+  max-width: 710px;
+  margin-top: 1.6rem;
+}
+
+/* Hover */
+@-webkit-keyframes hover {
+  100% {
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+}
+@keyframes hover {
+  100% {
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+}
+
+.hover {
+  width: 396px;
+  display: inline-block;
+  position: relative;
+  transition-duration: 1.3s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-transform: translateY(-10px);
+  transform: translateY(-10px);
+  -webkit-animation-name: hover;
+  animation-name: hover;
+  -webkit-animation-duration: 1.3s;
+  animation-duration: 1.3s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+}
+
+.notFoundContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: center;
+}
+
+.hero {
+  font-family: neue_montrealbold;
+  font-size: 10rem;
+}
+
+.text {
+  font-size: x-large;
+  text-align: center;
+}
+
+.registration-section {
+  background-color: white;
+  width: 320px;
+  margin-top: 44px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-radius: 4px;
+}
+
+.register-button {
+  background: linear-gradient(0deg, #83807c, #dbd7d2);
+  border: 1.25px solid #222;
+  border-radius: 4px;
+  overflow: visible;
+  height: 29px;
+  width: 82px;
+  font-size: 1.6rem;
+}
+
+.register-button:hover {
+  cursor: pointer;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+.register-button:active {
+  cursor: pointer;
+  box-shadow: inset 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+.registration-section legend {
+  font-size: 3.6rem;
+  font-weight: bold;
+  font-family: neue_montrealbold;
+  text-align: center;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 0;
+}
+
+.form-text {
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.github-section {
+  background-color: white;
+  width: 320px;
+  margin-top: 44px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-radius: 4px;
+  padding: 0 2rem;
+}
+
+.gh-header {
+  text-align: center;
+  font-family: neue_montrealbold;
+}
+
+.github-button {
+  margin: 0 auto 0rem auto;
+  background: linear-gradient(0deg, #48995d, #6be68c);
+  border: 1.25px solid #222;
+  border-radius: 4px;
+  color: white;
+  overflow: visible;
+  height: 50px;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.github-button:hover {
+  cursor: pointer;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+.github-button:active {
+  cursor: pointer;
+  box-shadow: inset 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
+}

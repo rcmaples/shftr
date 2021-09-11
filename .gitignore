@@ -1,0 +1,12 @@
+.DS_Store
+node_modules
+.env
+packages/client/src/config
+
+# Yarn
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

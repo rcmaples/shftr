@@ -20,8 +20,11 @@ const { addWeeks } = require('date-fns');
 const Agent = require('../models/Agent');
 const gsa = process.env.GOOGLE_SERVICE_ACCOUNT;
 const calId = process.env.GOOGLE_CALENDAR_ID;
+console.log('calId:\n', calId);
 const b64Creds = process.env.GOOGLE_SA_CREDENTIALS;
+console.log('b64Creds:\n', b64Creds);
 const credentials = JSON.parse(Buffer.from(b64Creds, 'base64').toString('utf-8'));
+console.log('credentials:\n', credentials);
 
 const scopes = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/calendar.events'];
 

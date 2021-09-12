@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 .env
-packages/client/src/config
+build
 
 # Yarn
 .yarn/*

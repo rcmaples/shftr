@@ -94,7 +94,8 @@ function runServer() {
       }
       server = app
         .listen(port, () => {
-          console.log('\n', `🏆  Your app is now running on port ${port} 🚀`, '\n');
+          // console.log('\n', `🏆  Your app is now running on port ${port} 🚀`, '\n');
+          console.log('\n', `Your app is now running on port ${port}`, '\n');
           resolve();
         })
         .on('error', err => {

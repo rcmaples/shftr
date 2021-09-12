@@ -4,8 +4,8 @@
   "description": "Scheduling and Random Assignment for Zendesk",
   "scripts": {
     "dev": "(cd client && npm run build) && (cd server && npm run dev)",
-    "start": "(cd client && npm run build) && (cd server && npm run start)",
-    "heroku-postbuild": "(cd client && npm run build) && (cd server && npm run start)"
+    "start": "cd server && npm run start",
+    "heroku-postbuild": "cd client && && npm install &&  npm run build)"
   },
   "repository": {
     "type": "git",

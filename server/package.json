@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Agent Scheduling and Automated Ticket Assignment",
   "main": "server.js",
-  "repository": "https://github.com/rcmaples/shftr-api.git",
+  "repository": "https://github.com/rcmaples/shftr.git",
   "author": "RC Maples",
   "license": "MIT",
   "private": true,

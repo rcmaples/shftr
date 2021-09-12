@@ -100,7 +100,7 @@ const HistoryTable = () => {
               <TableCell align='left'>Assigned at:</TableCell>
               <TableCell align='left'>Agent</TableCell>
               <TableCell align='left'>Group</TableCell>
-              <TableCell align='left'>Ticket to Ticket</TableCell>
+              <TableCell align='left'>Link to Ticket</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

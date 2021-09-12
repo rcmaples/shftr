@@ -55,6 +55,7 @@ require('./routes/api/history.route')(app);
 require('./routes/api/keys.route')(app);
 
 app.use((req, res, next) => {
+  console.log('req:\n', req);
   res.sendFile(path.join(__dirname, '.', 'client', 'build', 'index.html'));
 });
 
@@ -104,6 +105,7 @@ function closeServer() {
 }
 
 if (require.main === module) {
+  console.log('thing...\n', require.main);
   runServer().catch(err => console.error(err));
 }
 

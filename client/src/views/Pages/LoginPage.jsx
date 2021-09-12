@@ -77,7 +77,7 @@ class LoginPage extends Component {
                 <GoogleButton
                   type='dark'
                   onClick={() => {
-                    window.location.href = `${API_URL}/auth/google`;
+                    window.location.href = `/auth/google`;
                     console.log('click!');
                   }}
                 />

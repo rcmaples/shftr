@@ -33,15 +33,14 @@
     "typescript": "^4.3.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start-client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "engines": {
     "node": "14.17.0",
-    "npm": "6.14.13",
-    "yarn": ">=1.22.4"
+    "npm": "6.14.13"
   },
   "optionalDependencies": {},
   "devDependencies": {
@@ -54,5 +53,6 @@
       "not op_mini all"
     ],
     "development": []
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

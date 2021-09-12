@@ -1,6 +1,6 @@
 'use strict';
-require('newrelic');
 const http = require('http');
+const path = require('path');
 if (process.env.NODE_ENV === 'development') require('dotenv').config();
 require('./config/config');
 
@@ -49,6 +49,8 @@ app.use(express.json());
 app.use(cors(corsOptionsDelegate));
 app.use(cookieParser());
 app.use(jsonValidator);
+
+app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 app.use(express.static('./public'));
 
 // require('./config/passport')(passport);
@@ -58,6 +60,10 @@ require('./routes/api/agents.route')(app);
 require('./routes/api/appointments.route')(app);
 require('./routes/api/history.route')(app);
 require('./routes/api/keys.route')(app);
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+});
 
 // const whatTime = () => {
 //   console.log(new Date());

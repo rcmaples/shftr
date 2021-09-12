@@ -101,7 +101,7 @@ const RulesTable = () => {
       credentials: 'include',
     };
 
-    return fetch(`${API_URL}/api/agent/queueshare`, options)
+    return fetch(`/api/agent/queueshare`, options)
       .then(response => response.json())
       .then(data => {
         return data;
@@ -118,7 +118,7 @@ const RulesTable = () => {
       credentials: 'include',
     };
 
-    fetch(`${API_URL}/api/zendesk-agents?status=active`, options)
+    fetch(`/api/zendesk-agents?status=active`, options)
       .then(response => response.json())
       .then(agentList => {
         agentList.map(agentRecord => {

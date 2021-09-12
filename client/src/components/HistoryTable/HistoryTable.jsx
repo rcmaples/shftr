@@ -67,7 +67,7 @@ const HistoryTable = () => {
       credentials: 'include',
     };
 
-    fetch(`${API_URL}/api/history`, options)
+    fetch(`/api/history`, options)
       .then(response => response.json())
       .then(recordsList => {
         recordsList.map(record => {

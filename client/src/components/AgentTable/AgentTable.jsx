@@ -102,7 +102,7 @@ const AgentTable = () => {
       },
       credentials: 'include',
     };
-    fetch(`${API_URL}/api/zendesk-agents`, options)
+    fetch(`/api/zendesk-agents`, options)
       .then(response => {
         const { status, statusText } = response;
         if (status >= 200 && status < 300) {
@@ -188,7 +188,7 @@ const AgentTable = () => {
       credentials: 'include',
     };
 
-    fetch(`${API_URL}/api/zendesk-agents`, options)
+    fetch(`/api/zendesk-agents`, options)
       .then(response => response.json())
       .then(data => {
         setUpdates([]);
@@ -205,7 +205,7 @@ const AgentTable = () => {
       },
       credentials: 'include',
     };
-    fetch(`${API_URL}/api/zendesk-agents`, options)
+    fetch(`/api/zendesk-agents`, options)
       .then(response => response.json())
       .then(data => {
         setAgents(data);
@@ -224,7 +224,7 @@ const AgentTable = () => {
       credentials: 'include',
     };
 
-    fetch(`${API_URL}/api/zendesk-agents`, options)
+    fetch(`/api/zendesk-agents`, options)
       .then(response => response.json())
       .then(data => {
         let newList = agents;

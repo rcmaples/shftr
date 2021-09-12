@@ -45,6 +45,7 @@ module.exports = app => {
   });
 
   app.get('/api/zendesk-configs', jwtUserAuth, (req, res) => {
+    console.log(req.user);
     ZendeskConfig.findOne({ org: req.user.org })
       .then(configDoc => {
         res.status(200).json(configDoc.serialize());

@@ -67,7 +67,7 @@ const Settings = () => {
       },
       credentials: 'include',
     };
-    fetch(`${API_URL}/api/zendesk-configs`, options)
+    fetch(`/api/zendesk-configs`, options)
       .then(response => {
         const { status, statusText } = response;
         if (status >= 200 && status < 300) {
@@ -116,7 +116,7 @@ const Settings = () => {
       credentials: 'include',
     };
 
-    fetch(`${API_URL}/api/zendesk-configs`, options)
+    fetch(`/api/zendesk-configs`, options)
       .then(response => {
         const { status, statusText } = response;
         if (status >= 200 && status < 300) {
@@ -148,7 +148,7 @@ const Settings = () => {
       credentials: 'include',
     };
 
-    fetch(`${API_URL}/api/zendesk-test`, options)
+    fetch(`/api/zendesk-test`, options)
       .then(response => {
         const { status, statusText } = response;
         if (status >= 200 && status < 300) {

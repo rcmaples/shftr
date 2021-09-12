@@ -35,7 +35,7 @@ export const registerUser = (userData, history) => dispatch => {
     },
   };
 
-  fetch(`${API_URL}/api/users/register`, options)
+  fetch(`/api/users/register`, options)
     .then(response => {
       if (response.status >= 400) {
         throw response;
@@ -71,7 +71,7 @@ export const loginUser = userData => dispatch => {
     },
   };
 
-  fetch(`${API_URL}/api/users/login`, options)
+  fetch(`/api/users/login`, options)
     .then(response => {
       if (response.status >= 400) {
         throw response;
@@ -109,7 +109,7 @@ export const setCurrentUser = decoded => {
 // Get user
 export const getCurrentUser = () => dispatch => {
   dispatch(setUserLoading(true));
-  fetch(`${API_URL}/api/user/currentuser`, {
+  fetch(`/api/user/currentuser`, {
     method: 'GET',
     credentials: 'include',
   })
@@ -145,7 +145,7 @@ export const loginUserWithOauth = token => dispatch => {
     },
   };
 
-  fetch(`${API_URL}/api/users/currentUser`, options)
+  fetch(`/api/users/currentUser`, options)
     .then(response => response.json())
     .then(data => {
       console.log(data);
@@ -158,7 +158,7 @@ export const loginUserWithOauth = token => dispatch => {
 // Google Authing
 export const doGoogleAuth = () => dispatch => {
   dispatch(setUserLoading(true));
-  window.location.href = `${API_URL}/auth/google`;
+  window.location.href = `/auth/google`;
 };
 
 // log out user

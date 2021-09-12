@@ -1,0 +1,19 @@
+{
+  "name": "shftr",
+  "version": "0.5.0",
+  "description": "",
+  "scripts": {
+    "dev": "(cd client && npm run build) && (cd server && npm run dev)",
+    "start": "(cd client && npm run build) && (cd server && npm run start)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcmaples/shftr.git"
+  },
+  "author": "rcmaples",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rcmaples/shftr/issues"
+  },
+  "homepage": "https://github.com/rcmaples/shftr#readme"
+}

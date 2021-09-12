@@ -177,7 +177,7 @@ const SchedulerContainer = () => {
       credentials: 'include',
     };
 
-    fetch(`${API_URL}/api/appointments`, options)
+    fetch(`/api/appointments`, options)
       .then(response => response.json())
       .then(appts => {
         // console.log('appts:\n', appts);
@@ -187,7 +187,7 @@ const SchedulerContainer = () => {
       })
       .catch(error => console.log(error));
 
-    fetch(`${API_URL}/api/zendesk-agents?status=active`, options)
+    fetch(`/api/zendesk-agents?status=active`, options)
       .then(response => response.json())
       .then(agentList => {
         // console.log('agentList:\n', agentList);
@@ -214,7 +214,7 @@ const SchedulerContainer = () => {
 
     if (action === 'delete') {
       options.method = 'DELETE';
-      fetch(`${API_URL}/api/appointments/${obj}`, options)
+      fetch(`/api/appointments/${obj}`, options)
         .then(response => response.json())
         .then(jsonResponse => {
           let newData = data.filter(appointment => appointment.id !== obj);
@@ -227,7 +227,7 @@ const SchedulerContainer = () => {
     if (action === 'add') {
       options.method = 'POST';
       options.body = JSON.stringify(obj);
-      fetch(`${API_URL}/api/appointments`, options)
+      fetch(`/api/appointments`, options)
         .then(response => response.json())
         .then(jsonResponse => {
           setData([...data, jsonResponse]);
@@ -240,7 +240,7 @@ const SchedulerContainer = () => {
       let objId = Object.getOwnPropertyNames(obj).toString();
       options.method = 'PATCH';
       options.body = JSON.stringify(obj[objId]);
-      fetch(`${API_URL}/api/appointments/${objId}`, options)
+      fetch(`/api/appointments/${objId}`, options)
         .then(response => response.json())
         .then(jsonResponse => {
           let newData = data.map(appointment => {

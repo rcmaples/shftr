@@ -2,16 +2,66 @@
   "name": "shftr",
   "version": "0.5.0",
   "description": "Scheduling and Random Assignment for Zendesk",
+  "author": "RC Maples",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "date-fns": "^2.23.0",
+    "express": "^4.17.1",
+    "googleapis": "^84.0.0",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash.filter": "^4.6.0",
+    "lodash.get": "^4.4.2",
+    "lodash.isboolean": "^3.0.3",
+    "lodash.mapkeys": "^4.6.0",
+    "lodash.pick": "^4.4.0",
+    "mongodb": "^3.6.9",
+    "mongoose": "^5.12.11",
+    "mongoose-findorcreate": "^3.0.0",
+    "mongoose-long": "^0.4.0",
+    "morgan": "^1.10.0",
+    "newrelic": "^8.1.0",
+    "node-cron": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "rrule": "^2.6.8",
+    "uuid": "^8.3.2",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "dotenv": "^10.0.0",
+    "expect": "^27.0.1",
+    "faker": "^5.5.3",
+    "mocha": "^8.4.0"
+  },
+  "engines": {
+    "node": "14.17.0",
+    "npm": "6.14.13"
+  },
   "scripts": {
-    "dev": "(cd client && npm run build) && (cd server && npm run dev)",
-    "start": "cd server && npm run start",
-    "heroku-postbuild": "(cd server && npm install && npm run start) && (cd client && npm install && npm run build)"
+    "dev:server": "export NODE_ENV=developement && nodemon server.js",
+    "dev:client": "cd client && npm run build",
+    "dev": "npm run dev:client && npm run dev:server",
+    "start": "export NODE_ENV=production && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "test": "export NODE_ENV=test && mocha test/*.test.js --exit",
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rcmaples/shftr.git"
   },
-  "author": "rcmaples",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rcmaples/shftr/issues"

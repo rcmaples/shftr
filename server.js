@@ -14,13 +14,7 @@ const cookieParser = require('cookie-parser');
 
 const { setOnline, emptyOfflineQueue } = require('./utils/agentAvailability');
 
-let allowedOrigins = [
-  'http://localhost:3000',
-  'https://shftr.fyi',
-  'https://accounts.google.com',
-  'http://localhost:5000',
-  'https://shftr-api.herokuapp.com',
-];
+let allowedOrigins = ['https://shftr.fyi', 'https://accounts.google.com', 'http://localhost:5000'];
 
 const corsOptionsDelegate = (req, callback) => {
   let corsOptions = { credentials: true };
@@ -45,12 +39,11 @@ mongoose.set('useUnifiedTopology', true);
 
 app.use(morgan('dev'));
 app.use(express.json());
-// app.use(cors());
 app.use(cors(corsOptionsDelegate));
 app.use(cookieParser());
 app.use(jsonValidator);
 
-app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+app.use(express.static(path.join(__dirname, '.', 'client', 'build')));
 app.use(express.static('./public'));
 
 // require('./config/passport')(passport);
@@ -62,7 +55,7 @@ require('./routes/api/history.route')(app);
 require('./routes/api/keys.route')(app);
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '.', 'client', 'build', 'index.html'));
 });
 
 // const whatTime = () => {
@@ -75,15 +68,6 @@ cron.schedule('*/15 * * * *', () => {
   emptyOfflineQueue();
 });
 
-function keepAwake() {
-  console.log('No sleep for you!');
-  http.get('http://shftr-api.herokuapp.com/');
-}
-
-if (process.env.NODE_ENV !== 'development') {
-  cron.schedule('*/30 * * * *', keepAwake);
-}
-
 function runServer() {
   const port = process.env.PORT || 5000;
   return new Promise((resolve, reject) => {
@@ -94,8 +78,8 @@ function runServer() {
       }
       server = app
         .listen(port, () => {
-          // console.log('\n', `🏆  Your app is now running on port ${port} 🚀`, '\n');
-          console.log('\n', `Your app is now running on port ${port}`, '\n');
+          console.log('\n', `🏆  Your app is now running on port ${port} 🚀`, '\n');
+          // console.log('\n', `Your app is now running on port ${port}`, '\n');
           resolve();
         })
         .on('error', err => {

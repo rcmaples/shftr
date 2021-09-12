@@ -55,17 +55,16 @@ const isOnline = async () => {
 
     if (!appt.rRule) {
       latestShiftStart = appt.startDate;
-      console.log('line 58:\n', latestShiftStart);
       shiftEnd = appt.endDate;
     } else {
       if (!!appt.rRule.includes('RRULE:')) {
         apptRule = RRule.fromString(`DTSTART:${apptStartDate}\nRRULE:${appt.rRule.split(':')[1]}`);
         // console.log('apptStartDate\n', apptStartDate);
         // console.log('appt.rRule.split\n', `${appt.rRule.split(':')[1]}`);
-        console.log('line 65:\n', apptRule);
+        // console.log('line 65:\n', apptRule);
       } else if (!appt.rRule.includes('RRULE:')) {
         apptRule = RRule.fromString(`DTSTART:${apptStartDate}\nRRULE:${appt.rRule}`);
-        console.log('line 66:\n', apptRule);
+        // console.log('line 66:\n', apptRule);
       }
 
       try {

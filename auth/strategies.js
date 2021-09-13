@@ -81,9 +81,8 @@ const googleOptions = {
 };
 
 const googleStrategy = new GoogleStrategy(googleOptions, async (accessToken, refreshToken, profile, done) => {
-  // console.log('Google profile: \n', profile);
   try {
-    const existingUser = await User.findOne({ email: profile.email });
+    const existingUser = await User.findOne({ email: profile._json.email });
     if (existingUser) {
       return done(null, existingUser);
     }

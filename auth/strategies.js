@@ -13,10 +13,13 @@ const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 
 const { JWT_SECRET } = require('../config/config');
 
-const cookieExtractor = req => {
+const tokenExtractor = req => {
   let token = null;
-  if (req && req.cookies) {
+  if (req && req.cookies && req.cookies['token']) {
     token = req.cookies['token'];
+    console.log('cookie token:\n', token);
+  } else {
+    return token;
   }
   return token;
 };
@@ -42,13 +45,19 @@ const localStrategy = new LocalStrategy(localOptions, (email, password, done) =>
   });
 });
 
-const jwtOptions = {
+const jwtCookieOptions = {
   secretOrKey: JWT_SECRET,
-  jwtFromRequest: cookieExtractor,
+  jwtFromRequest: tokenExtractor,
   algorithms: ['HS256'],
 };
 
-const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
+const jwtHeaderOptions = {
+  secretOrKey: JWT_SECRET,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+  algorithms: ['HS256'],
+};
+
+const jwtCookieStrategy = new JwtStrategy(jwtCookieOptions, (payload, done) => {
   User.findById(payload.id, function (err, user) {
     if (err) {
       return done(err, false);
@@ -61,7 +70,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
   });
 });
 
-const jwtApiStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
+const jwtApiStrategy = new JwtStrategy(jwtHeaderOptions, (payload, done) => {
   Key.findById(payload.id, (err, key) => {
     if (err) {
       return done(err, false);
@@ -107,6 +116,6 @@ const googleStrategy = new GoogleStrategy(googleOptions, async (accessToken, ref
 
 passport.use(localStrategy);
 passport.use('google', googleStrategy);
-passport.use('user', jwtStrategy);
+passport.use('user', jwtCookieStrategy);
 passport.use('key', jwtApiStrategy);
-module.exports = { localStrategy, jwtStrategy, jwtApiStrategy };
+module.exports = { localStrategy, jwtCookieStrategy, jwtApiStrategy };

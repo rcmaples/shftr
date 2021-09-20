@@ -37,7 +37,7 @@ const isOnline = async () => {
     let excludedDates = [];
     let excluded = false;
 
-    // console.log('appt:\n', appt);
+    console.log('appt:\n', appt);
 
     if (!!appt.exDate) {
       let apptExdateArray = appt.exDate.split(',');
@@ -69,7 +69,7 @@ const isOnline = async () => {
 
       try {
         latestShiftStart = apptRule.before(now, true);
-        // console.log('line 70:\n', latestShiftStart);
+        console.log('line 72:\n', latestShiftStart);
       } catch (error) {
         console.log('error:\n', error);
       }

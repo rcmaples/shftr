@@ -17,7 +17,6 @@ const tokenExtractor = req => {
   let token = null;
   if (req && req.cookies && req.cookies['token']) {
     token = req.cookies['token'];
-    console.log('cookie token:\n', token);
   } else {
     return token;
   }

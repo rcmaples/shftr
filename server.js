@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 // };
 
 // cron.schedule('*/15 * * * *', whatTime);
-cron.schedule('*/1 * * * *', () => {
+cron.schedule('*/15 * * * *', () => {
   setOnline();
   emptyOfflineQueue();
 });

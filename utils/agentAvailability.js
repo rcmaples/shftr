@@ -37,8 +37,6 @@ const isOnline = async () => {
     let excludedDates = [];
     let excluded = false;
 
-    console.log('appt:\n', appt);
-
     if (!!appt.exDate) {
       let apptExdateArray = appt.exDate.split(',');
       apptExdateArray.map(string => {
@@ -53,27 +51,17 @@ const isOnline = async () => {
       });
     }
 
-    if (!appt.rRule) {
+    if (!appt.rRule || appt.startDate > now) {
       latestShiftStart = appt.startDate;
       shiftEnd = appt.endDate;
     } else {
       if (!!appt.rRule.includes('RRULE:')) {
         apptRule = RRule.fromString(`DTSTART:${apptStartDate}\nRRULE:${appt.rRule.split(':')[1]}`);
-        // console.log('apptStartDate\n', apptStartDate);
-        // console.log('appt.rRule.split\n', `${appt.rRule.split(':')[1]}`);
-        // console.log('line 65:\n', apptRule);
       } else if (!appt.rRule.includes('RRULE:')) {
         apptRule = RRule.fromString(`DTSTART:${apptStartDate}\nRRULE:${appt.rRule}`);
-        // console.log('line 66:\n', apptRule);
       }
 
-      try {
-        latestShiftStart = apptRule.before(now, true);
-        console.log('line 72:\n', latestShiftStart);
-      } catch (error) {
-        console.log('error:\n', error);
-      }
-
+      latestShiftStart = apptRule.before(now, true);
       shiftEnd = new Date(latestShiftStart.getTime() + apptLength);
     }
 
@@ -107,6 +95,7 @@ const setOnline = async () => {
         .exec()
         .catch(error => console.log(error));
     } else {
+      console.log(`${now} - Setting the following id offline: `, activeId);
       await Agent.findByIdAndUpdate(activeId, { $set: { online: false } })
         .exec()
         .catch(error => console.log(error));

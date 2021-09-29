@@ -12,7 +12,10 @@ const groupsDict = {
 };
 
 const findAvailableAgents = async () => {
-  const onlineAgents = await Agent.find({ online: true, activated: true }).lean().exec();
+  // hard coding this to finding support engineers for now until we decide to start doing auto assignment for main queue
+  const onlineAgents = await Agent.find({ online: true, activated: true, defaultZendeskGroupName: 'Support Engineers' })
+    .lean()
+    .exec();
   let availableAgents = [];
   onlineAgents.map(doc => {
     const { email, name, queueShare, zendeskId, _id: id } = doc;
@@ -68,6 +71,7 @@ const assignTicket = async (theTicket, org) => {
   let winningAgent = await infiniteImprobabilityDrive(ticketGroup);
 
   if (winningAgent === 0) {
+    console.log('Winning agent: ', winningAgent); // temp, to be removed.
     addToOfflineQueue(theTicket, org);
     return;
   }

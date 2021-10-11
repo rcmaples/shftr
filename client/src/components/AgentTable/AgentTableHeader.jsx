@@ -7,9 +7,10 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const headCells = [
-  { id: 'name', alignRight: false, label: 'Name' },
-  { id: 'defaultZendeskGroupName', alignRight: true, label: 'Zendesk Group' },
-  { id: 'activated', alignRight: true, label: 'Active' },
+  { id: 'name', align: 'left', label: 'Name' },
+  { id: 'defaultZendeskGroupName', align: 'right', label: 'Zendesk Group' },
+  { id: 'activated', align: 'right', label: 'Active' },
+  { id: 'paused', align: 'center', label: 'Paused' },
 ];
 
 const AgentTableHeader = props => {
@@ -40,7 +41,7 @@ const AgentTableHeader = props => {
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.alignRight ? 'right' : 'left'}
+            align={headCell.align}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel

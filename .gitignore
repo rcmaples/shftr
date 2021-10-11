@@ -3,7 +3,8 @@ node_modules
 .env
 
 build/
-client/build
+client/build/*
+build
 
 # Yarn
 .yarn/*

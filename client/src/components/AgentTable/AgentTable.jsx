@@ -162,14 +162,10 @@ const AgentTable = () => {
     let paused = event.target.checked;
     const { id } = agent;
 
-    // console.log(paused, id);
-
     let theUpdate = {
       id,
       paused,
     };
-
-    console.log(theUpdate);
 
     let options = {
       method: 'PATCH',
@@ -183,8 +179,6 @@ const AgentTable = () => {
     fetch(`/api/agent/pause`, options)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-
         if (typeof data.paused != undefined) {
           let pausedUpdates = agents.map(item => {
             if (item.id == data.id) {
@@ -232,9 +226,7 @@ const AgentTable = () => {
 
     fetch(`/api/zendesk-agents`, options)
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
+      .then(data => {})
       .catch(error => console.warn(error));
   };
 
@@ -327,7 +319,6 @@ const AgentTable = () => {
                 const isItemSelected = isSelected(agent);
                 const labelId = `enhanced-table-checkbox-${index}`;
                 const zendeskGroupName = agent.defaultZendeskGroupName;
-                console.log(agent.name, agent.paused);
                 return (
                   <TableRow
                     hover

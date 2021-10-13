@@ -79,6 +79,7 @@ AgentSchema.methods.serialize = function () {
     queueShare: this.queueShare,
     defaultZendeskGroupId: this.defaultZendeskGroupId,
     defaultZendeskGroupName: this.defaultZendeskGroupName,
+    paused: this.paused,
   };
 };
 

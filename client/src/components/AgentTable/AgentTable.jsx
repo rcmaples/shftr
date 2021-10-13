@@ -157,6 +157,35 @@ const AgentTable = () => {
     setSelected(newSelected);
   };
 
+  const handlePauseAgent = (event, agent) => {
+    event.preventDefault();
+    let paused = event.target.checked;
+    const { id } = agent;
+
+    // console.log(paused, id);
+
+    let theUpdate = {
+      id,
+      paused,
+    };
+
+    console.log(theUpdate);
+
+    let options = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(theUpdate),
+      credentials: 'include',
+    };
+
+    fetch(`/api/agent/pause`, options)
+      .then(response => response.json())
+      .then(data => {})
+      .catch(error => console.warn(error));
+  };
+
   const handleActivateClick = (event, agent) => {
     event.preventDefault();
     const { id } = agent;
@@ -192,7 +221,7 @@ const AgentTable = () => {
     fetch(`/api/zendesk-agents`, options)
       .then(response => response.json())
       .then(data => {
-        setUpdates([]);
+        console.log(data);
       })
       .catch(error => console.warn(error));
   };
@@ -324,10 +353,8 @@ const AgentTable = () => {
                     <TableCell align='center'>
                       <Switch
                         size='small'
-                        // checked={}
-                        onChange={event =>
-                          console.log(event.target.checked, agent)
-                        }
+                        checked={agent.paused}
+                        onChange={event => handlePauseAgent(event, agent)}
                       />
                     </TableCell>
                   </TableRow>

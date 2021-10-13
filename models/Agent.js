@@ -49,6 +49,11 @@ const AgentSchema = new Schema({
     supeng: { type: Number, default: 0.0 },
     mobile: { type: Number, default: 0.0 },
   },
+  paused: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

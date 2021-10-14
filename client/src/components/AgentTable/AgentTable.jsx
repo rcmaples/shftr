@@ -226,7 +226,9 @@ const AgentTable = () => {
 
     fetch(`/api/zendesk-agents`, options)
       .then(response => response.json())
-      .then(data => {})
+      .then(data => {
+        setUpdates([]);
+      })
       .catch(error => console.warn(error));
   };
 

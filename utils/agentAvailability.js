@@ -96,7 +96,9 @@ const setOnline = async () => {
         .catch(error => console.log(error));
     } else {
       console.log(`${now} - Setting the following id offline: `, activeId);
-      await Agent.findByIdAndUpdate(activeId, { $set: { online: false } })
+      // TODO: leaving a pointer here in case this 'paused: false' thing doesn't work.
+      // This _should_ remove pause status when an agent goes offline though.
+      await Agent.findByIdAndUpdate(activeId, { $set: { online: false, paused: false } })
         .exec()
         .catch(error => console.log(error));
     }

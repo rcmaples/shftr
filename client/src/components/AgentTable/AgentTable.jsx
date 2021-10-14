@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import SyncIcon from '@material-ui/icons/Sync';
+import Switch from '@material-ui/core/Switch';
 
 import TableToolbar from '../../components/TableToolbar/TableToolbar';
 import AgentTableHeader from './AgentTableHeader';
@@ -156,6 +157,41 @@ const AgentTable = () => {
     setSelected(newSelected);
   };
 
+  const handlePauseAgent = (event, agent) => {
+    event.preventDefault();
+    let paused = event.target.checked;
+    const { id } = agent;
+
+    let theUpdate = {
+      id,
+      paused,
+    };
+
+    let options = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(theUpdate),
+      credentials: 'include',
+    };
+
+    fetch(`/api/agent/pause`, options)
+      .then(response => response.json())
+      .then(data => {
+        if (typeof data.paused != undefined) {
+          let pausedUpdates = agents.map(item => {
+            if (item.id == data.id) {
+              return { ...item, paused: data.paused };
+            }
+            return item;
+          });
+          setAgents(pausedUpdates);
+        }
+      })
+      .catch(error => console.warn(error));
+  };
+
   const handleActivateClick = (event, agent) => {
     event.preventDefault();
     const { id } = agent;
@@ -288,7 +324,6 @@ const AgentTable = () => {
                 return (
                   <TableRow
                     hover
-                    onClick={event => handleSelectSingleClick(event, agent)}
                     role='checkbox'
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -297,6 +332,7 @@ const AgentTable = () => {
                   >
                     <TableCell padding='checkbox'>
                       <Checkbox
+                        onClick={event => handleSelectSingleClick(event, agent)}
                         checked={isItemSelected}
                         inputProps={{ 'aria-labelledby': labelId }}
                       />
@@ -318,6 +354,14 @@ const AgentTable = () => {
                         checked={agent.activated}
                         value={agent.activated}
                         onClick={event => handleActivateClick(event, agent)}
+                      />
+                    </TableCell>
+                    <TableCell align='center'>
+                      <Switch
+                        size='small'
+                        checked={agent.paused}
+                        onChange={event => handlePauseAgent(event, agent)}
+                        disabled={!agent.activated}
                       />
                     </TableCell>
                   </TableRow>

@@ -359,6 +359,7 @@ const AgentTable = () => {
                         size='small'
                         checked={agent.paused}
                         onChange={event => handlePauseAgent(event, agent)}
+                        disabled={!agent.activated}
                       />
                     </TableCell>
                   </TableRow>

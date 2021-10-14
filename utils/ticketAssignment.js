@@ -13,7 +13,12 @@ const groupsDict = {
 
 const findAvailableAgents = async () => {
   // hard coding this to finding support engineers for now until we decide to start doing auto assignment for main queue
-  const onlineAgents = await Agent.find({ online: true, activated: true, defaultZendeskGroupName: 'Support Engineers' })
+  const onlineAgents = await Agent.find({
+    online: true,
+    activated: true,
+    paused: false,
+    defaultZendeskGroupName: 'Support Engineers',
+  })
     .lean()
     .exec();
   let availableAgents = [];
@@ -45,10 +50,12 @@ const infiniteImprobabilityDrive = async groupName => {
 
   availableAgents.map(agent => {
     totalAvailability += agent.queueShare[`${groupName}`];
+    console.log('Total Availability: ', totalAvailability);
   });
 
   if (totalAvailability > 0) {
     bowlOfPetunias = Math.floor(Math.random() * totalAvailability);
+    console.log('Bowl of Petunias: ', bowlOfPetunias);
   }
 
   for (let i = 0; i < availableAgents.length; i++) {
@@ -111,27 +118,22 @@ const assignTicket = async (theTicket, org) => {
     .then(result => {
       console.log(`Assigned ticket ${ticketId} to ${result.ticket['assignee_id']}`);
       AssignmentRecord.findOne({ ticketId: ticketId }).then(document => {
-        if (document) {
-          console.log(`A record for ${ticketId} already exists.`);
-          return;
-        } else {
-          const newAssignmentRecord = new AssignmentRecord({
-            name,
-            email,
-            zendeskUserId: zendeskId,
-            groupName,
-            ticketUrl,
-            ticketId,
-            org,
-          });
-          newAssignmentRecord
-            .save()
-            .then(doc => {
-              console.log('Logging the ticket.');
-              return;
-            })
-            .catch(error => console.log(error));
-        }
+        const newAssignmentRecord = new AssignmentRecord({
+          name,
+          email,
+          zendeskUserId: zendeskId,
+          groupName,
+          ticketUrl,
+          ticketId,
+          org,
+        });
+        newAssignmentRecord
+          .save()
+          .then(doc => {
+            console.log('Logging the ticket.');
+            return;
+          })
+          .catch(error => console.log(error));
       });
     })
     .catch(error => console.log(error));

@@ -178,7 +178,7 @@ const modifyGoogleEvent = async shftrEvent => {
   }
 
   if (rRule) {
-    recurrenceArray.push(`${rRule}`);
+    recurrenceArray.push(`RRULE:${rRule}`);
   }
 
   if (recurrenceArray.length > 0) {

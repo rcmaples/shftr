@@ -7,6 +7,9 @@ import {
   USER_LOADING,
   GOOGLE_AUTH_USER,
 } from './types';
+
+import * as FullStory from '@fullstory/browser';
+
 let API_URL = '';
 
 if (process.env.NODE_ENV === 'development') {
@@ -21,6 +24,10 @@ export const setUserLoading = loading => {
     type: USER_LOADING,
     payload: loading,
   };
+};
+
+const fsIdentify = ({ id, name, email, org }) => {
+  FullStory.identify(id, { displayName: name, email: email, org_str: org });
 };
 
 // Registration
@@ -83,6 +90,7 @@ export const loginUser = userData => dispatch => {
       localStorage.setItem('jwtToken', token);
       const decoded = jwt_decode(token);
       dispatch(setCurrentUser(decoded));
+      fsIdentify(decoded);
       dispatch(setUserLoading(false));
       dispatch({
         type: CLEAR_ERRORS,
@@ -115,6 +123,10 @@ export const getCurrentUser = () => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
+      if (data.name && data.org && data.id && data.email) {
+        fsIdentify(data);
+      }
+
       dispatch({
         type: GET_CURRENT_USER,
         payload: data,

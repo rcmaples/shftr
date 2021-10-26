@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import * as FullStory from '@fullstory/browser';
+import jwt_decode from 'jwt-decode';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,9 +16,6 @@ import TableToolbar from '../../components/TableToolbar/TableToolbar';
 import AgentTableHeader from './AgentTableHeader';
 import AgentTableFooter from '../../components/AgentTableFooter/AgentTableFooter';
 import { Event, InsertComment } from '@material-ui/icons';
-
-// import { agents } from './agentdata';
-// const { jwtToken } = localStorage;
 
 let API_URL = '';
 
@@ -86,16 +85,36 @@ function updateArray(arr, obj) {
   }
 }
 
+function findToken() {
+  let cookieToken;
+  if (document.cookie.indexOf('token=') !== -1) {
+    cookieToken = document.cookie
+      .split('; ')
+      .find(cookie => cookie.startsWith('token'))
+      .split('=')[1];
+  } else {
+    cookieToken = null;
+  }
+  return cookieToken;
+}
+
 const AgentTable = () => {
-  const { jwtToken } = localStorage;
   const classes = useStyles();
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('activated');
   const [selected, setSelected] = useState([]);
   const [agents, setAgents] = useState([]);
   const [updates, setUpdates] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
+    let cookieToken = findToken();
+    if (cookieToken) {
+      let decodedUser = jwt_decode(cookieToken);
+      let { id, name, email, org } = decodedUser;
+      setCurrentUser({ id, name, email, org });
+    }
+
     let options = {
       method: 'GET',
       headers: {
@@ -159,8 +178,25 @@ const AgentTable = () => {
 
   const handlePauseAgent = (event, agent) => {
     event.preventDefault();
+    let action = '';
     let paused = event.target.checked;
-    const { id } = agent;
+    let { id, name, defaultZendeskGroupName } = agent;
+
+    if (paused == true) {
+      action = 'Paused Agent';
+    }
+
+    if (paused == false) {
+      action = 'Unpaused Agent';
+    }
+
+    FullStory.event(action, {
+      currentUserName_str: currentUser.name,
+      currentUserEmail_str: currentUser.email,
+      modifiedAgentId_str: id,
+      modifiedAgentName: name,
+      modifiedAgentZendeskGroup_str: defaultZendeskGroupName,
+    });
 
     let theUpdate = {
       id,

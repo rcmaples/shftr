@@ -5,9 +5,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 
-// import * as FullStory from '@fullstory/browser';
-
-// FullStory.init({ orgId: 'PSYET' });
+import * as FullStory from '@fullstory/browser';
+FullStory.init({ orgId: '164EXE' });
 
 // core components
 import Admin from './layouts/Admin';
@@ -45,6 +44,8 @@ if (findToken()) {
   const cookieToken = findToken();
   const decoded = jwt_decode(cookieToken);
   store.dispatch(setCurrentUser(decoded));
+  const { id, name, email, org } = decoded;
+  FullStory.identify(id, { displayName: name, email: email, org_str: org });
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());

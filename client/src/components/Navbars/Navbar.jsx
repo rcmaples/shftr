@@ -10,7 +10,7 @@ import Hidden from '@material-ui/core/Hidden';
 // @material-ui/icons
 import Menu from '@material-ui/icons/Menu';
 // core components
-import AdminNavbarLinks from './AdminNavbarLinks';
+import { AdminNavbarLinks } from './AdminNavbarLinks';
 import Button from '../CustomButtons/Button';
 
 //hooks
@@ -30,7 +30,7 @@ export default function Header(props) {
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
-      <div className={classes.flex}>
+        <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
           {/* <Button color='transparent' href='#' className={classes.title}>
             {routeName}

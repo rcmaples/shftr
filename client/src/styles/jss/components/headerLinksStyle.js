@@ -1,4 +1,10 @@
-import { defaultFont, dangerColor, whiteColor, grayColor, hexToRgb } from '../main';
+import {
+  defaultFont,
+  dangerColor,
+  whiteColor,
+  grayColor,
+  hexToRgb,
+} from '../main';
 
 import dropdownStyle from '../dropdownStyle';
 
@@ -29,6 +35,7 @@ const headerLinksStyle = theme => ({
   },
   buttonLink: {
     [theme.breakpoints.down('sm')]: {
+      color: whiteColor,
       display: 'flex',
       margin: '10px 15px 0',
       width: '-webkit-fill-available',
@@ -37,6 +44,13 @@ const headerLinksStyle = theme => ({
         height: '30px',
         marginRight: '15px',
         marginLeft: '-15px',
+      },
+      '&:hover': {
+        color: whiteColor,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+      },
+      '&:focus': {
+        color: whiteColor,
       },
       '& .fab,& .fas,& .far,& .fal,& .material-icons': {
         fontSize: '24px',
@@ -103,6 +117,10 @@ const headerLinksStyle = theme => ({
       margin: '10px 15px 0',
     },
     display: 'inline-block',
+  },
+  bugFormWrapper: {
+    width: '400px',
+    height: '300px',
   },
 });
 

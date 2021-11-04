@@ -145,6 +145,9 @@ const sidebarStyle = theme => ({
     padding: '10px 15px',
     backgroundColor: 'transparent',
     ...defaultFont,
+    '&:hover': {
+      backgroundColor: 'rgba(0,0,0,0.4)',
+    },
   },
   itemIcon: {
     width: '24px',
@@ -275,7 +278,7 @@ const sidebarStyle = theme => ({
   },
   sidebarFooter: {
     zIndex: '4',
-    marginBottom: '20px'
+    marginBottom: '20px',
   },
   activePro: {
     [theme.breakpoints.up('md')]: {

@@ -13,7 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Icon from '@material-ui/core/Icon';
 // core components
-import AdminNavbarLinks from '../Navbars/AdminNavbarLinks';
+import { AdminNavbarLinks } from '../Navbars/AdminNavbarLinks';
 
 import styles from '../../styles/jss/components/sidebarStyle';
 
@@ -30,7 +30,11 @@ export default function Sidebar(props) {
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
-        if (prop.layout === '/admin' && prop.path !== '/user' && prop.path !== '/settings') {
+        if (
+          prop.layout === '/admin' &&
+          prop.path !== '/user' &&
+          prop.path !== '/settings'
+        ) {
           const listItemClasses = classNames({
             [' ' + classes[color]]: activeRoute(prop.layout + prop.path),
           });
@@ -38,12 +42,23 @@ export default function Sidebar(props) {
             [' ' + classes.whiteFont]: activeRoute(prop.layout + prop.path),
           });
           return (
-            <NavLink to={prop.layout + prop.path} className={classes.item} activeClassName='active' key={key}>
+            <NavLink
+              to={prop.layout + prop.path}
+              className={classes.item}
+              activeClassName='active'
+              key={key}
+            >
               <ListItem button className={classes.itemLink + listItemClasses}>
                 {typeof prop.icon === 'string' ? (
-                  <Icon className={classNames(classes.itemIcon, whiteFontClasses)}>{prop.icon}</Icon>
+                  <Icon
+                    className={classNames(classes.itemIcon, whiteFontClasses)}
+                  >
+                    {prop.icon}
+                  </Icon>
                 ) : (
-                  <prop.icon className={classNames(classes.itemIcon, whiteFontClasses)} />
+                  <prop.icon
+                    className={classNames(classes.itemIcon, whiteFontClasses)}
+                  />
                 )}
                 <ListItemText
                   primary={prop.name}
@@ -59,7 +74,7 @@ export default function Sidebar(props) {
   );
 
   const settingsLinks = (
-<List className={classes.list}>
+    <List className={classes.list}>
       {routes.map((prop, key) => {
         if (prop.layout === '/admin' && prop.path === '/settings') {
           const listItemClasses = classNames({
@@ -69,12 +84,23 @@ export default function Sidebar(props) {
             [' ' + classes.whiteFont]: activeRoute(prop.layout + prop.path),
           });
           return (
-            <NavLink to={prop.layout + prop.path} className={classes.item} activeClassName='active' key={key}>
+            <NavLink
+              to={prop.layout + prop.path}
+              className={classes.item}
+              activeClassName='active'
+              key={key}
+            >
               <ListItem button className={classes.itemLink + listItemClasses}>
                 {typeof prop.icon === 'string' ? (
-                  <Icon className={classNames(classes.itemIcon, whiteFontClasses)}>{prop.icon}</Icon>
+                  <Icon
+                    className={classNames(classes.itemIcon, whiteFontClasses)}
+                  >
+                    {prop.icon}
+                  </Icon>
                 ) : (
-                  <prop.icon className={classNames(classes.itemIcon, whiteFontClasses)} />
+                  <prop.icon
+                    className={classNames(classes.itemIcon, whiteFontClasses)}
+                  />
                 )}
                 <ListItemText
                   primary={prop.name}
@@ -87,7 +113,7 @@ export default function Sidebar(props) {
         }
       })}
     </List>
-  )
+  );
 
   var brand = (
     <div className={classes.logo}>
@@ -119,11 +145,7 @@ export default function Sidebar(props) {
             <AdminNavbarLinks />
             {links}
           </div>
-          <div className={classes.sidebarFooter}>
-            {settingsLinks}
-          </div>
-
-
+          <div className={classes.sidebarFooter}>{settingsLinks}</div>
         </Drawer>
       </Hidden>
       <Hidden smDown implementation='css'>
@@ -138,7 +160,6 @@ export default function Sidebar(props) {
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
           <div className={classes.sidebarFooter}>{settingsLinks}</div>
-
         </Drawer>
       </Hidden>
     </div>

@@ -1,168 +1,103 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Popper } from '@material-ui/core';
 import classNames from 'classnames';
 
-// @material-ui/core components
-import withStyles from '@material-ui/core/styles/withStyles';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Hidden from '@material-ui/core/Hidden';
-import Poppers from '@material-ui/core/Popper';
-import Divider from '@material-ui/core/Divider';
 // @material-ui/icons
 import Person from '@material-ui/icons/Person';
-import Dashboard from '@material-ui/icons/Dashboard';
+import BugReportIcon from '@material-ui/icons/BugReport';
 
-// core components
-import Button from '../CustomButtons/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../styles/jss/components/headerLinksStyle';
+const useStyles = makeStyles(styles);
+
+import { NavBarButton } from './NavBarButton';
+import { NavBarLogoutMenu } from './NavBarLogoutMenu';
+import { BugReportForm } from '../BugReportForm/BugReportForm';
 
 // actions
 import { logoutUser } from '../../actions/authActions';
-class AdminNavbarLinks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      menuOpen: null,
-    };
-  }
 
-  openMenu = event => {
-    if (this.state.menuOpen && this.state.menuOpen.contains(event.target)) {
-      this.setState({ menuOpen: null });
+export const AdminNavbarLinks = () => {
+  const classes = useStyles();
+  const [profileMenuOpen, setProfileMenuOpen] = useState(null);
+  const [bugReportFormOpen, setBugReportFormOpen] = useState(null);
+
+  const handleProfileMenu = event => {
+    if (profileMenuOpen && profileMenuOpen.contains(event.target)) {
+      setProfileMenuOpen(null);
     } else {
-      this.setState({ menuOpen: event.currentTarget });
+      setProfileMenuOpen(event.currentTarget);
     }
   };
 
-  onClickAway = () => {
-    this.setState({ menuOpen: null });
+  const handleBugReportClick = event => {
+    if (bugReportFormOpen && bugReportFormOpen.contains(event.target)) {
+      setBugReportFormOpen(null);
+    } else {
+      setBugReportFormOpen(event.currentTarget);
+    }
   };
 
-  handleLogout = () => {
-    this.onClickAway();
-    this.props.logoutUser();
+  const onClickAway = event => {
+    if (!!profileMenuOpen) {
+      setProfileMenuOpen(null);
+    }
+    if (!!bugReportFormOpen) {
+      setBugReportFormOpen(null);
+    }
   };
 
-  handleSettings = () => {
-    this.props.history.push('/admin/settings');
-    this.onClickAway();
+  const handleLogout = () => {
+    onClickAway();
+    logoutUser();
   };
 
-  handleProfile = () => {
-    this.props.history.push('/admin/user');
-    this.onClickAway();
-  };
-
-  handleDashboard = () => {
-    this.props.history.push('/admin/dashboard');
-  };
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
-        {/* <Button
-          color={window.innerWidth > 959 ? 'transparent' : 'white'}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label='Dashboard'
-          className={classes.buttonLink}
-          onClick={this.handleDashboard}
+  return (
+    <div>
+      <div className={classes.manager}>
+        <NavBarButton
+          icon={<BugReportIcon />}
+          linkText='Report a Bug'
+          onClick={handleBugReportClick}
+          ariaOwns=''
+          ariaPopup='true'
+        />
+        <Popper
+          open={!!bugReportFormOpen}
+          anchorEl={bugReportFormOpen}
+          transition
+          disablePortal
+          className={
+            classNames({ [classes.popperClose]: !bugReportFormOpen }) +
+            ' ' +
+            classes.popperNav +
+            ' ' +
+            classes.bugFormWrapper
+          }
         >
-          <Dashboard className={classes.icons} />
-          <Hidden mdUp implementation='css'>
-            <p className={classes.linkText}>Dashboard</p>
-          </Hidden>
-        </Button> */}
-
-        <div className={classes.manager}>
-          <Button
-            color={window.innerWidth > 959 ? 'transparent' : 'white'}
-            justIcon={window.innerWidth > 959}
-            simple={!(window.innerWidth > 959)}
-            aria-owns={this.state.menuOpen ? 'profile-menu-list-grow' : null}
-            aria-haspopup='true'
-            onClick={this.openMenu}
-            className={classes.buttonLink}
-          >
-            <Person className={classes.icons} />
-            <Hidden mdUp implementation='css'>
-              <p className={classes.linkText}>Profile</p>
-            </Hidden>
-          </Button>
-          <Poppers
-            open={Boolean(this.state.menuOpen)}
-            anchorEl={this.state.menuOpen}
-            transition
-            disablePortal
-            className={
-              classNames({ [classes.popperClose]: !this.state.menuOpen }) +
-              ' ' +
-              classes.popperNav
-            }
-          >
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                id='profile-menu-list-grow'
-                style={{
-                  transformOrigin:
-                    placement === 'bottom' ? 'center top' : 'center bottom',
-                }}
-              >
-                <Paper>
-                  <ClickAwayListener onClickAway={this.onClickAway}>
-                    <MenuList role='menu'>
-                      {/* <MenuItem
-                        onClick={this.handleProfile}
-                        className={classes.dropdownItem}
-                      >
-                        Profile
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleSettings}
-                        className={classes.dropdownItem}
-                      >
-                        Settings
-                      </MenuItem>
-                      <Divider light /> */}
-                      <MenuItem
-                        onClick={this.handleLogout}
-                        className={classes.dropdownItem}
-                      >
-                        Logout
-                      </MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Poppers>
-        </div>
+          <BugReportForm onClickAway={onClickAway} />
+        </Popper>
+        <NavBarButton
+          icon={<Person />}
+          linkText='Profile'
+          onClick={handleProfileMenu}
+          ariaOwns={profileMenuOpen ? 'profile-menu-list-grow' : null}
+          ariaPopup='true'
+        />
+        <Popper
+          open={!!profileMenuOpen}
+          anchorEl={profileMenuOpen}
+          transition
+          disablePortal
+          className={
+            classNames({ [classes.popperClose]: !profileMenuOpen }) +
+            ' ' +
+            classes.popperNav
+          }
+        >
+          <NavBarLogoutMenu onClickAway={onClickAway} onClick={handleLogout} />
+        </Popper>
       </div>
-    );
-  }
-}
-
-AdminNavbarLinks.propTypes = {
-  classes: PropTypes.object.isRequired,
-  history: PropTypes.object,
+    </div>
+  );
 };
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors,
-});
-
-export default compose(
-  withRouter,
-  withStyles(styles),
-  connect(mapStateToProps, { logoutUser })
-)(AdminNavbarLinks);

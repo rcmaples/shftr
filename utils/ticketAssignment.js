@@ -53,6 +53,11 @@ const infiniteImprobabilityDrive = async groupName => {
     console.log('Total Availability: ', totalAvailability);
   });
 
+  if (totalAvailability === 0) {
+    console.log(`No agents with ${groupName} queue share available.`);
+    return totalAvailability;
+  }
+
   if (totalAvailability > 0) {
     bowlOfPetunias = Math.floor(Math.random() * totalAvailability);
     console.log('Bowl of Petunias: ', bowlOfPetunias);

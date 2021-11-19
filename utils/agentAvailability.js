@@ -83,11 +83,10 @@ const isOnline = async () => {
 };
 
 const setOnline = async () => {
-  let now = new Date();
-  console.log(`${now} - Checking online status...`);
+  console.log(`Checking online status...`);
   let activeIds = await findActiveAgents();
   let onlineIds = await isOnline();
-  console.log(`${now} - Setting the following ids online: `, onlineIds);
+  console.log(`Setting the following ids online: `, onlineIds);
 
   activeIds.map(async activeId => {
     if (onlineIds.indexOf(activeId) != -1) {
@@ -95,7 +94,7 @@ const setOnline = async () => {
         .exec()
         .catch(error => console.log(error));
     } else {
-      console.log(`${now} - Setting the following id offline: `, activeId);
+      console.log(`Setting the following id offline: `, activeId);
       // TODO: leaving a pointer here in case this 'paused: false' thing doesn't work.
       // This _should_ remove pause status when an agent goes offline though.
       await Agent.findByIdAndUpdate(activeId, { $set: { online: false, paused: false } })
@@ -107,19 +106,18 @@ const setOnline = async () => {
 };
 
 const emptyOfflineQueue = async () => {
-  let now = new Date();
-  console.log(`${now} - Checking for offline tickets...`);
+  console.log(`Checking for offline tickets...`);
   let tickets = await OfflineTicket.find({}).lean();
   let availableAgents = await findAvailableAgents();
-  console.log(`${now} - There are ${tickets.length} tickets in the offline queue.`);
+  console.log(`There are ${tickets.length} tickets in the offline queue.`);
 
   if (tickets.length < 1) {
-    console.log(`${now} - The offline queue is all clear! Huzzah!`);
+    console.log(`The offline queue is all clear! Huzzah!`);
     return;
   }
 
   if (availableAgents < 1) {
-    console.log(`${now} - There are no available agents. Going back to sleep.`);
+    console.log(`There are no available agents. Going back to sleep.`);
     return;
   }
 

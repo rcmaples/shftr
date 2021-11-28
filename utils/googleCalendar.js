@@ -85,7 +85,12 @@ const createGoogleEvent = async shftrEvent => {
   }
 
   if (rRule) {
-    recurrenceArray.push(`${rRule}`);
+    let correct = rRule.includes('RRULE:');
+    if (correct) {
+      recurrenceArray.push(`${rRule}`);
+    } else {
+      recurrenceArray.push(`RRULE:${rRule}`);
+    }
   }
 
   if (recurrenceArray.length > 0) {
@@ -178,7 +183,12 @@ const modifyGoogleEvent = async shftrEvent => {
   }
 
   if (rRule) {
-    recurrenceArray.push(`RRULE:${rRule}`);
+    let correct = rRule.includes('RRULE:');
+    if (correct) {
+      recurrenceArray.push(`${rRule}`);
+    } else {
+      recurrenceArray.push(`RRULE:${rRule}`);
+    }
   }
 
   if (recurrenceArray.length > 0) {
